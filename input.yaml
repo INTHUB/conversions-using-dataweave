@@ -1,0 +1,31 @@
+https-exp:
+  port: "8092"
+  path: "/api/*"
+  methods: "GET,POST"
+  requestMime: "application/json"
+  idleTimeoutInMSec: "60000"
+  respTimeout: "60000"
+  reconnection:
+    frequency: "5000"
+    attempts: "3"
+smtp:
+  host           : "10.20.20.30"
+  port           : "25"
+  user           : "someu5er"
+  password       : "some5ecret"
+  fromEmail      : "fromSome1@mail.com"
+  toEmail        : "toSome1@mail.com"
+  ccEmail        : "some1@mail.com, some2@mail.com"
+  reconFrequency : "60000"
+  reconAttempt   : "2"
+  notifications  : 
+    enabled: "true"
+    targets: ["email","teams"]
+    eventType:
+      success: 
+        enabled: "true"
+        attachPayload: "false"
+      failure: 
+        enabled: "true"
+        attachPayload: "true"
+    errorCodes: "401,403,404,405,406,415,429"
