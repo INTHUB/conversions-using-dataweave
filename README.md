@@ -7,7 +7,7 @@ Format Conversions using dataweave
 
       * Use dw script for transformation [yaml-to-properties.dw]
 
-![Yaml to properties] (yaml-to-properties-snap.jpg)
+![Yaml to properties](yaml-to-properties-snap.jpg)
 
 
   
@@ -18,4 +18,4 @@ Format Conversions using dataweave
 
       * Use dw script for transformation [properties-to-yaml.dw]
 
-![Yaml to properties] (properties-to-yaml-snap.jpg)
+![Yaml to properties](properties-to-yaml-snap.jpg)
