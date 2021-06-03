@@ -1,0 +1,30 @@
+%dw 2.0 
+import * from dw::core::Strings 
+output application/yaml 
+
+var delimiter = "=" 
+var lineSeparator = "\n" 
+
+fun generateArray (str) = str splitBy(lineSeparator) 
+
+fun isSubChildExists (str) = ((((str splitBy(delimiter)) [0]) splitBy (".")) [1] != null) 
+
+fun propToJSON(str) = 
+    if (isSubChildExists(str)) { 
+        (substringBefore(str, ".")) : propToJSON(substringAfter(str, ".")) 
+    } 
+    else (substringBefore(str, delimiter)): substringAfter(str, delimiter) 
+
+fun arrToObj(arr) = arr reduce ((env, obj={}) -> obj ++ env) 
+
+fun CombineObjBasedOnKey (Obj) = 
+if (typeOf(Obj) == Array and sizeOf(Obj..) > 1) 
+    ((Obj groupBy (item, index) -> keysOf(item)[0]) mapObject ((value, key, index) -> 
+        if (log("ObjectType2: " ++ key, typeOf(value)) == Array) 
+            (key): (log("CombineObjBasedOnKey2: ",CombineObjBasedOnKey(value..'$key'))) 
+        else if (log("ObjectType2: " ++ key, typeOf(value)) == String) value 
+        else (key): (log("CombineObjBasedOnKey3: ",value)) )) 
+else Obj[0] 
+
+--- 
+CombineObjBasedOnKey(generateArray(payload) map ((item, index) -> propToJSON(item) ))
